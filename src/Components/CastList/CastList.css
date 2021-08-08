@@ -1,0 +1,46 @@
+.castlist-wrapper {
+  background-color: #dc3434;
+  width: 100%;
+  height: 100px;
+  position: relative;
+}
+.castlist {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.castlist::-webkit-scrollbar {
+  display: none;
+}
+.castlist img {
+  width: 50px;
+  margin-left: 20px;
+}
+.castlist-button-prev,
+.castlist-button-next {
+  width: 30px;
+  height: 100%;
+  background-color: #14141480;
+  position: absolute;
+  z-index: 2;
+}
+.castlist-button-prev button,
+.castlist-button-next button {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.castlist-button-next {
+  right: 0;
+}
