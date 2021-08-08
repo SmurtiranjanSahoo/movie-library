@@ -7,11 +7,14 @@
     rgba(0, 0, 0, 0.7) 10%,
     rgba(0, 0, 0, 0)
   );
+  background-color: #141414;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   position: fixed;
   top: 0;
+  z-index: 3;
 }
 .primary-navigation {
   display: flex;
