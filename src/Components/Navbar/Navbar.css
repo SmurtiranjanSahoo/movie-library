@@ -1,0 +1,202 @@
+.navbar-wrapper {
+  width: 100%;
+  height: 68px;
+  padding: 0 50px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 10%,
+    rgba(0, 0, 0, 0)
+  );
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+}
+.primary-navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-links,
+.browse-section {
+  margin-left: 25px;
+}
+.browse-section {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  color: #ffffff;
+  display: none;
+}
+.secondary-navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.search-input {
+  width: 270px;
+  height: 34px;
+  position: relative;
+  overflow: hidden;
+}
+.search-input input {
+  width: 100%;
+  height: 100%;
+  padding-left: 30px;
+  outline: none;
+  border: 1px solid #ffffff;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  animation: SearchBarShow 0.3s ease-in-out;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+  animation-play-state: running;
+  animation-name: SearchBarShow;
+}
+.search-icon {
+  position: absolute;
+  right: 0;
+  margin-top: 4px;
+  cursor: pointer;
+}
+.search-icon-2 {
+  position: absolute;
+  left: 0;
+  margin: 4px 0 0 4px;
+  cursor: pointer;
+  animation: SearchBarShow 0.3s ease-in-out;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+  animation-play-state: running;
+  animation-name: SearchBarShow;
+}
+.notification-section {
+  margin: 0 20px;
+}
+.user-section {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.user-section img {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+/* Dropdown profile */
+.profile-dropdown-wrapper,
+.browse-dropdown-wrapper {
+  width: 100%;
+  height: 198px;
+  padding: 0 50px;
+  margin-top: 68px;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.browse-dropdown-wrapper {
+  padding-left: 60px;
+}
+.profile-dropdown-container,
+.browse-dropdown-container {
+  width: 179px;
+  height: 100%;
+  margin-left: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+  border: solid 1px rgba(255, 255, 255, 0.15);
+  position: relative;
+  animation: ProfileDropdownShow 0.5s ease-in-out;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+  animation-play-state: running;
+  animation-name: ProfileDropdownShow;
+}
+.browse-dropdown-container {
+  width: 260px;
+  height: 250px;
+  margin-left: 0;
+  margin-right: auto;
+  border-top: 2px solid #ffffff;
+}
+.dropdown-sec-primary,
+.dropdown-sec-secondary {
+  height: 99px;
+  width: 100%;
+  padding: 10px 0 5px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+.browse-dropdown-sec p {
+  height: 50px;
+  color: #ffffff;
+  font-size: 13px;
+  text-align: center;
+  padding: 15px 0;
+}
+.dropdown-sec-secondary {
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 0 10px;
+}
+.dropdown-sec-primary p,
+.dropdown-sec-secondary p {
+  width: 100%;
+  height: 42px;
+  padding: 5px 10px;
+}
+.dropdown-sec-secondary p {
+  height: 26px;
+}
+.profile-dropdown-tip,
+.browse-dropdown-tip {
+  transform: rotate(180deg);
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: -18px 32px 0 0;
+}
+.browse-dropdown-tip {
+  margin: -17px 115px 0 0;
+}
+
+@keyframes ProfileDropdownShow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes SearchBarShow {
+  0% {
+    opacity: 0;
+    transform: translateX(270px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .nav-links {
+    display: none;
+  }
+  .browse-section {
+    display: inline-flex;
+  }
+}
