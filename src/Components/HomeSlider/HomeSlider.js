@@ -1,15 +1,15 @@
 import React, { useState, createRef } from "react";
 import "./HomeSlider.css";
+//icons
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+//components
 import SliderCard from "../SliderCard/SliderCard";
 
-const HomeSlider = ({ title = "Popular on Netflix" }) => {
+const HomeSlider = ({ title = "Popular on Netflix", list }) => {
   const [prevBtn, setPrevBtn] = useState("hidden");
   const [nextBtn, setNextBtn] = useState("visible");
-
   const sliderRef = createRef();
 
-  var arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   return (
     <div className="slider-wrapper">
       <div className="slider-header">{title}</div>
@@ -55,9 +55,10 @@ const HomeSlider = ({ title = "Popular on Netflix" }) => {
           <GrFormNext fill="#ffffff" size="70px" />
         </button>
       </div>
+
       <div ref={sliderRef} className="slider">
-        {arr.map((card, i) => (
-          <SliderCard key={i} />
+        {list.map((item, i) => (
+          <SliderCard item={item} key={i} />
         ))}
       </div>
     </div>
