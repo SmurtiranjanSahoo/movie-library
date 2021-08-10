@@ -175,6 +175,9 @@
 .browse-dropdown-tip {
   margin: -17px 115px 0 0;
 }
+.hambuger-icon {
+  display: none;
+}
 
 @keyframes ProfileDropdownShow {
   0% {
@@ -201,5 +204,67 @@
   }
   .browse-section {
     display: inline-flex;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-wrapper,
+  .profile-dropdown-wrapper {
+    padding: 0 20px 0 70px;
+  }
+
+  .browse-section,
+  .notification-section {
+    display: none;
+  }
+  .search-input {
+    display: none;
+  }
+  .hambuger-icon {
+    display: initial;
+    position: absolute;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    margin: 18px 16px;
+    z-index: 3;
+  }
+  .hamburgermenu-wrapper {
+    height: 100vh;
+    width: 60%;
+    background-color: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    animation: HamburgerMenuShow 0.3s ease-in-out;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation-name: HamburgerMenuShow;
+  }
+  .hamburgermenu-links {
+    margin-top: 50px;
+    padding: 20px 40px;
+  }
+  .menu-link {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    padding: 10px;
+  }
+}
+
+@keyframes HamburgerMenuShow {
+  0% {
+    opacity: 0;
+    transform: translateX(-60%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }

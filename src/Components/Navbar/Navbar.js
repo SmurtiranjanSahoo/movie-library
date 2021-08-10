@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { RiArrowDownSFill, RiSearchLine } from "react-icons/ri";
+import { RiArrowDownSFill, RiSearchLine, RiCloseLine } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { ReactComponent as NetflixLogo } from "../../assets/netflix-logo.svg";
 
 const Navbar = () => {
   const [isProfileDropDown, setIsProfileDropDown] = useState(false);
   const [isBrowseDropDown, setIsBrowseDropDown] = useState(false);
+  const [isHamburgerMenu, setIsHamburgerMenu] = useState(false);
   const [searchBar, setSearchBar] = useState(false);
 
   const LinkStyle = {
@@ -60,16 +62,58 @@ const Navbar = () => {
     );
   };
 
+  const hamburgerMenu = () => {
+    return (
+      <div className="hamburgermenu-wrapper">
+        <div className="hamburgermenu-links">
+          <Link to="/" className="menu-link">
+            Home
+          </Link>
+          <Link to="/tvshows" className="menu-link">
+            TV Shows
+          </Link>
+          <Link to="/movies" className="menu-link">
+            Movies
+          </Link>
+          <Link className="menu-link">New & Popular</Link>
+          <Link className="menu-link">My List</Link>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="navbar-wrapper">
+      {!isHamburgerMenu ? (
+        <GiHamburgerMenu
+          className="hambuger-icon"
+          onClick={() => {
+            setIsHamburgerMenu(!isHamburgerMenu);
+          }}
+          fill="#ffffff"
+        />
+      ) : (
+        <RiCloseLine
+          className="hambuger-icon"
+          onClick={() => {
+            setIsHamburgerMenu(!isHamburgerMenu);
+          }}
+          fill="#ffffff"
+        />
+      )}
+
       <div className="primary-navigation">
         <NetflixLogo />
         <div className="nav-links">
           <Link to="/" style={LinkStyle}>
             Home
           </Link>
-          <Link style={LinkStyle}>TV Shows</Link>
-          <Link style={LinkStyle}>Movies</Link>
+          <Link to="/tvshows" style={LinkStyle}>
+            TV Shows
+          </Link>
+          <Link to="/movies" style={LinkStyle}>
+            Movies
+          </Link>
           <Link style={LinkStyle}>New & Popular</Link>
           <Link style={LinkStyle}>My List</Link>
         </div>
@@ -146,6 +190,7 @@ const Navbar = () => {
       </div>
       {isProfileDropDown ? profileDropDown() : <></>}
       {isBrowseDropDown ? browseDropDown() : <></>}
+      {isHamburgerMenu ? hamburgerMenu() : <></>}
     </div>
   );
 };
