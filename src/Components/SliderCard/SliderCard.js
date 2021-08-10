@@ -1,5 +1,6 @@
 import React from "react";
 import "./SliderCard.css";
+import { Link } from "react-router-dom";
 import {
   FaPlay,
   FaTicketAlt,
@@ -7,18 +8,25 @@ import {
   FaCcDinersClub,
 } from "react-icons/fa";
 
-const SliderCard = () => {
+const SliderCard = ({ item }) => {
+  let backdrop_img = item.backdrop_path
+    ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
+    : "https://image.tmdb.org/t/p/w500/jlGmlFOcfo8n5tURmhC7YVd4Iyy.jpg";
+
+  let detailView_link = item.backdrop_path
+    ? item.release_date
+      ? `movie/${item.id}`
+      : `tvshow/${item.id}`
+    : "/movie/436969";
+
   return (
     <div className="slider-card-wrapper">
-      <div className="slider-card-img">
-        <img
-          src="https://occ-0-4344-2164.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABTIXM8MvoS9nhRoK3fkeIzWzA_TG4N1ASHaUsUeQWlZYwEA7OsrJzV4Ot0DFJeQy1zN8ZldSn9ThyYjVUniFH3wTXDo.webp?r=6c4"
-          alt="card img"
-        />
+      <Link to={detailView_link} className="slider-card-img">
+        <img src={backdrop_img} alt="backdrop img" />
         <div className="slider-card-info">
           <div className="slider-card-rating"> 9.1 IMDB </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
