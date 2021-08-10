@@ -1,8 +1,9 @@
 .castlist-wrapper {
   background-color: #dc3434;
   width: 100%;
-  height: 100px;
+  height: 90px;
   position: relative;
+  border-radius: 5px;
 }
 .castlist {
   width: 100%;
@@ -10,6 +11,8 @@
   overflow-x: auto;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  position: relative;
   scroll-behavior: smooth;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -18,9 +21,27 @@
   display: none;
 }
 .castlist img {
-  width: 50px;
-  margin-left: 20px;
+  min-width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
 }
+.cast {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cast p {
+  margin-top: 8px;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50px;
+}
+
 .castlist-button-prev,
 .castlist-button-next {
   width: 30px;

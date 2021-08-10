@@ -1,12 +1,28 @@
-import React, { useState, createRef } from "react";
+import React, { useState, createRef, useEffect } from "react";
 import "./CastList.css";
+import { useParams } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchMovieCast } from "../../actions/movieActions";
+import { fetchTvshowCast } from "../../actions/tvshowActions";
+
+//icons
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
-const CastList = () => {
+const CastList = ({
+  fetchMovieCast,
+  movieCastDetails,
+  fetchTvshowCast,
+  tvCastDetails,
+}) => {
   const castRef = createRef();
   const [prevBtn, setPrevBtn] = useState("hidden");
   const [nextBtn, setNextBtn] = useState("visible");
-  var arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+  const { movieId, tvshowId } = useParams();
+
+  useEffect(() => {
+    movieId ? fetchMovieCast(movieId) : fetchTvshowCast(tvshowId);
+  }, []);
 
   return (
     <div className="castlist-wrapper">
@@ -52,15 +68,50 @@ const CastList = () => {
         </button>
       </div>
       <div ref={castRef} className="castlist">
-        {arr.map((card, i) => (
-          <img
-            src="https://fabmovielibrary.netlify.app/static/media/avatar.6dcde115.svg"
-            alt=""
-          />
-        ))}
+        {movieId
+          ? movieCastDetails.map((item, i) => (
+              <div key={i} className="cast">
+                <img
+                  src={
+                    item.profile_path
+                      ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+                      : "https://fabmovielibrary.netlify.app/static/media/avatar.6dcde115.svg"
+                  }
+                  alt="actor"
+                />
+                <p>{item.name}</p>
+              </div>
+            ))
+          : tvCastDetails.map((item, i) => (
+              <div key={i} className="cast">
+                <img
+                  src={
+                    item.profile_path
+                      ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+                      : "https://fabmovielibrary.netlify.app/static/media/avatar.6dcde115.svg"
+                  }
+                  alt="actor"
+                />
+                <p>{item.name}</p>
+              </div>
+            ))}
       </div>
     </div>
   );
 };
 
-export default CastList;
+const mapStateToProps = (state) => ({
+  movieCastDetails: state.MovieReducer.castDetails,
+  tvCastDetails: state.TvshowReducer.castDetails,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  let movieid = window.location?.pathname.slice(7);
+  let tvshowid = window.location?.pathname.slice(8);
+
+  return {
+    fetchMovieCast: () => dispatch(fetchMovieCast(movieid)),
+    fetchTvshowCast: () => dispatch(fetchTvshowCast(tvshowid)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CastList);
