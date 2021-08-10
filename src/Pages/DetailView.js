@@ -1,16 +1,25 @@
 import React from "react";
 import "../Components/DetailView/DetailView.css";
-
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+//components
 import DetailViewInfo from "../Components/DetailView/DetailViewInfo";
 import Navbar from "../Components/Navbar/Navbar";
-const DetailView = () => {
+
+const DetailView = ({ movieDetails, tvshowDetails }) => {
+  const { movieId } = useParams();
+
   return (
     <div>
       <Navbar />
       <div style={{ marginTop: "100px" }} className="detail-view-wrapper">
         <div className="detail-view-poster">
           <img
-            src="https://image.tmdb.org/t/p/w500/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg"
+            src={
+              movieId
+                ? `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`
+                : `https://image.tmdb.org/t/p/w500${tvshowDetails.poster_path}`
+            }
             alt="poster"
           />
         </div>
@@ -22,4 +31,9 @@ const DetailView = () => {
   );
 };
 
-export default DetailView;
+const mapStateToProps = (state) => ({
+  movieDetails: state.MovieReducer.movieDetails,
+  tvshowDetails: state.TvshowReducer.tvshowDetails,
+});
+
+export default connect(mapStateToProps)(DetailView);
