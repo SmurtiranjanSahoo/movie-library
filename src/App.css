@@ -1,13 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;1,400&display=swap");
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  /* font-family: "Netflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; */
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
   background: #141414;
-  height: 1000px;
+}
+
+.tvshow-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.slider-card {
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .slider-card {
+    margin-bottom: -5px;
+  }
 }
