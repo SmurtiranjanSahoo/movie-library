@@ -1,4 +1,9 @@
-# NetFlix UI of my own flavour
+# NetFlix UI
+### NetFilx of my own flavour
 
-## Tech used
-React & Redux
+#### Live Demo
+https://netflix-ui-tr.vercel.app/
+
+#### Tech used
+1. React
+2. Redux
