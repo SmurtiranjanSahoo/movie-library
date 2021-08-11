@@ -12,7 +12,7 @@ export const fetchSearchResult = (query) => {
       .get()
       .then((response) => {
         const searchResult = response.data?.results;
-        console.log(searchResult);
+        // console.log(searchResult);
         dispatch(fetchSearchResultSuccess(searchResult));
       })
       .catch((err) => {

@@ -61,7 +61,7 @@ export const tvshow_cast_url = (id) =>
 
 export const search_url = (query) =>
   axios.create({
-    baseURL: `https://api.themoviedb.org/3/search/keyword?query=${query}`,
+    baseURL: `https://api.themoviedb.org/3/search/multi?query=${query}`,
     params: {
       api_key: process.env.REACT_APP_API_KEY,
     },

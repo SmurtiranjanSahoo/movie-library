@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
-
+import { Link, withRouter } from "react-router-dom";
 //icons
 import { RiArrowDownSFill, RiSearchLine, RiCloseLine } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ReactComponent as NetflixLogo } from "../../assets/netflix-logo.svg";
 
-const Navbar = () => {
+const Navbar = ({ history, searchicon = "visible" }) => {
   const [isProfileDropDown, setIsProfileDropDown] = useState(false);
   const [isBrowseDropDown, setIsBrowseDropDown] = useState(false);
   const [isHamburgerMenu, setIsHamburgerMenu] = useState(false);
-  const [searchBar, setSearchBar] = useState(false);
-  const [searchtext, setSearchtext] = useState("");
 
   const LinkStyle = {
     textDecoration: "none",
@@ -151,33 +148,15 @@ const Navbar = () => {
       </div>
       <div className="secondary-navigation">
         <div className="search-section">
-          <div className="search-input">
-            <input
-              style={{ display: searchBar ? "initial" : "none" }}
-              type={searchtext}
-              onChange={(e) => setSearchtext(e.target.value)}
-              placeholder="Titles, people, genres"
-            />
-
-            <RiSearchLine
-              style={{ display: searchBar ? "initial" : "none" }}
-              onClick={() => {
-                setSearchBar(!searchBar);
-              }}
-              className="search-icon-2"
-              fill="#ffffff"
-              size="24px"
-            />
-            <RiSearchLine
-              style={{ display: searchBar ? "none" : "initial" }}
-              onClick={() => {
-                setSearchBar(!searchBar);
-              }}
-              className="search-icon"
-              fill="#ffffff"
-              size="24px"
-            />
-          </div>
+          <RiSearchLine
+            style={{ visibility: searchicon }}
+            onClick={() => {
+              history.push("/search");
+            }}
+            className="search-icon"
+            fill="#ffffff"
+            size="24px"
+          />
         </div>
         <div className="notification-section">
           <IoMdNotifications fill="#ffffff" size="26px" />
@@ -219,4 +198,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);
