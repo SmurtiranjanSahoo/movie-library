@@ -65,3 +65,10 @@
 .castlist-button-next {
   right: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .castlist-button-prev,
+  .castlist-button-next {
+    display: none;
+  }
+}

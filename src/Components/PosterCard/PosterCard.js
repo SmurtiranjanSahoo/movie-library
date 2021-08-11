@@ -16,7 +16,10 @@ const PosterCard = ({ item }) => {
   return (
     <div className="poster-card-wrapper">
       <Link to={detailView_link}>
-        <img src={poster_path} alt="poster" />
+        <img
+          src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+          alt="poster"
+        />
       </Link>
     </div>
   );
