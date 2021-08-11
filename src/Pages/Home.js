@@ -18,6 +18,7 @@ import { fetchUpcommingList } from "../actions/upcommingListActions";
 //components
 import HomeSlider from "../Components/HomeSlider/HomeSlider";
 import Navbar from "../Components/Navbar/Navbar";
+import Carousel from "../Components/Carousel/Carousel";
 
 const Home = ({
   fetchList,
@@ -45,12 +46,14 @@ const Home = ({
   return (
     <div className="App">
       <Navbar />
+      {/* <Carousel title="Trending Now" list={trendingList} /> */}
+
       <div style={{ marginTop: "100px" }}>
         <HomeSlider title="Trending Now" list={trendingList} />
-        <HomeSlider title="Popular" list={popularList} />
+        <HomeSlider title="Top Rated" list={topratedList} />
         <HomeSlider title="Discover TV Shows" list={discoverTvshowList} />
         <HomeSlider title="Discover Movies" list={discoverMovieList} />
-        <HomeSlider title="Top Rated" list={topratedList} />
+        <HomeSlider title="Popular" list={popularList} />
         <HomeSlider title="Upcomming" list={upcommingList} />
       </div>
     </div>
@@ -67,12 +70,17 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchList: () => dispatch(fetchList(Trending_url)),
-  fetchPopularList: () => dispatch(fetchPopularList(PopularMovies_url)),
-  fetchMovieList: () => dispatch(fetchMovieList(DiscoverMovies_url)),
-  fetchTvshowList: () => dispatch(fetchTvshowList(DiscoverTVshows_url)),
-  fetchTopratedList: () => dispatch(fetchTopratedList(TopRated_url)),
-  fetchUpcommingList: () => dispatch(fetchUpcommingList(Upcomming_url)),
+  fetchList: (Trending_url) => dispatch(fetchList(Trending_url)),
+  fetchPopularList: (PopularMovies_url) =>
+    dispatch(fetchPopularList(PopularMovies_url)),
+  fetchMovieList: (DiscoverMovies_url) =>
+    dispatch(fetchMovieList(DiscoverMovies_url)),
+  fetchTvshowList: (DiscoverTVshows_url) =>
+    dispatch(fetchTvshowList(DiscoverTVshows_url)),
+  fetchTopratedList: (TopRated_url) =>
+    dispatch(fetchTopratedList(TopRated_url)),
+  fetchUpcommingList: (Upcomming_url) =>
+    dispatch(fetchUpcommingList(Upcomming_url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

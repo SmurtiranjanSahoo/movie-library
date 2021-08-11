@@ -8,11 +8,11 @@ import {
 } from "../actions/action-types";
 
 const INITIAL_TVSHOW_STATE = {
-  loadingTvshow: true,
+  loadingTvshow: false,
   tvshowDetails: {},
-  loadingCast: true,
+  loadingCast: false,
   castDetails: [],
-  loadingRecommendations: true,
+  loadingRecommendations: false,
   recommendedMovies: {},
   error: "",
 };
@@ -20,16 +20,16 @@ const INITIAL_TVSHOW_STATE = {
 const TvshowReducer = (state = INITIAL_TVSHOW_STATE, action) => {
   switch (action.type) {
     case FETCH_TVSHOW_BEGIN:
-      return { ...state, loadingTvshow: true };
+      return { ...state, tvshowDetails: {}, loadingTvshow: true };
     case FETCH_TVSHOW_SUCCESS:
-      return { ...state, tvshowDetails: action.payload };
+      return { ...state, loadingTvshow: false, tvshowDetails: action.payload };
     case FETCH_TVSHOW_FAILURE:
       return { ...state, loadingTvshow: false, error: action.payload };
 
     case FETCH_TVSHOW_CAST_BEGIN:
-      return { ...state, loadingCast: true };
+      return { ...state, castDetails: [], loadingCast: true };
     case FETCH_TVSHOW_CAST_SUCCESS:
-      return { ...state, castDetails: action.payload };
+      return { ...state, loadingCast: false, castDetails: action.payload };
     case FETCH_TVSHOW_CAST_FAILURE:
       return { ...state, loadingCast: false, error: action.payload };
 

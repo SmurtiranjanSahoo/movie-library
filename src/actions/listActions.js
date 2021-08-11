@@ -30,8 +30,3 @@ export const fetchListFailure = (error) => ({
   type: LIST_FAILURE,
   payload: error,
 });
-
-// export const getMovie = (id) => ({
-//   type: GET_MOVIE,
-//   payload: id,
-// });

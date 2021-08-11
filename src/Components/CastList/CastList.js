@@ -7,6 +7,7 @@ import { fetchTvshowCast } from "../../actions/tvshowActions";
 
 //icons
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import actor from "../../assets/actor.png";
 
 const CastList = ({
   fetchMovieCast,
@@ -75,7 +76,7 @@ const CastList = ({
                   src={
                     item.profile_path
                       ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-                      : "https://fabmovielibrary.netlify.app/static/media/avatar.6dcde115.svg"
+                      : "https://bit.ly/37CoSXX"
                   }
                   alt="actor"
                 />
@@ -106,12 +107,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  let movieid = window.location?.pathname.slice(7);
-  let tvshowid = window.location?.pathname.slice(8);
-
   return {
-    fetchMovieCast: () => dispatch(fetchMovieCast(movieid)),
-    fetchTvshowCast: () => dispatch(fetchTvshowCast(tvshowid)),
+    fetchMovieCast: (movieid) => dispatch(fetchMovieCast(movieid)),
+    fetchTvshowCast: (tvshowid) => dispatch(fetchTvshowCast(tvshowid)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CastList);

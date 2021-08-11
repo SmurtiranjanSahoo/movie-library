@@ -9,6 +9,7 @@ import TopratedListReducer from "./reducer/TopratedListReducer";
 import UpcommingListReducer from "./reducer/UpcommingListReducer";
 import MovieReducer from "./reducer/MovieReducer";
 import TvshowReducer from "./reducer/TvshowReducer";
+import SearchReducer from "./reducer/SearchReducer";
 
 const rootReducer = combineReducers({
   ListReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   UpcommingListReducer,
   MovieReducer,
   TvshowReducer,
+  SearchReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

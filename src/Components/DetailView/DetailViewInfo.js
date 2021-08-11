@@ -11,15 +11,11 @@ import { BsPlayFill, BsLink45Deg } from "react-icons/bs";
 //components
 import CastList from "../CastList/CastList";
 
-const DetailViewInfo = ({
-  fetchMovie,
-  movieDetails,
-  fetchTvshow,
-  tvshowDetails,
-}) => {
+const DetailViewInfo = ({ fetchMovie, movieData, fetchTvshow, tvshowData }) => {
   const { movieId, tvshowId } = useParams();
-
   const [trailer, setTrailer] = useState("");
+  const { movieDetails, loadingMovie } = movieData;
+  const { tvshowDetails, loadingTvshow } = tvshowData;
 
   const fetchTrailer = () => {
     movieId
@@ -50,83 +46,92 @@ const DetailViewInfo = ({
 
   return (
     <Fragment>
-      <div className="title-detail">
-        {movieId ? movieDetails.title : tvshowDetails.name}
-        <div className="rating-runtime">
-          <div className="rating">
-            <SiImdb size="25" className="imbd-icon" />{" "}
-            {`${
-              movieId ? movieDetails.vote_average : tvshowDetails.vote_average
-            } / 10`}
+      {loadingMovie || loadingTvshow ? (
+        <></>
+      ) : (
+        <Fragment>
+          <div className="title-detail">
+            {movieId ? movieDetails.title : tvshowDetails.name}
+            <div className="rating-runtime">
+              <div className="rating">
+                <SiImdb size="25" className="imbd-icon" />{" "}
+                {`${
+                  movieId
+                    ? movieDetails.vote_average
+                    : tvshowDetails.vote_average
+                } / 10`}
+              </div>
+              <div className="runtime">
+                {!movieId
+                  ? `${tvshowDetails.original_language} / ${
+                      tvshowDetails.number_of_seasons
+                    } SEASONS / ${tvshowDetails.first_air_date?.slice(0, 4)}`
+                  : `${movieDetails.original_language} / ${
+                      movieDetails.runtime
+                    } MIN / ${movieDetails.release_date?.slice(0, 4)}`}
+              </div>
+            </div>
           </div>
-          <div className="runtime">
-            {!movieId
-              ? `${tvshowDetails.original_language} / ${
-                  tvshowDetails.number_of_seasons
-                } SEASONS / ${tvshowDetails.first_air_date?.slice(0, 4)}`
-              : `${movieDetails.original_language} / ${
-                  movieDetails.runtime
-                } MIN / ${movieDetails.release_date?.slice(0, 4)}`}
+          <div className="genre-detail">
+            <h4>THE GENRES</h4>
+            <div className="genre-icon">
+              {movieId
+                ? movieDetails.genres?.map((genre, i) => (
+                    <p key={i}>{genre.name}</p>
+                  ))
+                : tvshowDetails.genres?.map((genre, i) => (
+                    <p key={i}>{genre.name}</p>
+                  ))}
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="genre-detail">
-        <h4>THE GENRES</h4>
-        <div className="genre-icon">
-          {movieId
-            ? movieDetails.genres?.map((genre, i) => (
-                <p key={i}>{genre.name}</p>
-              ))
-            : tvshowDetails.genres?.map((genre, i) => (
-                <p key={i}>{genre.name}</p>
-              ))}
-        </div>
-      </div>
-      <div className="synopsis-detail">
-        <h4>THE SYNOPSIS</h4>
-        <p>{movieId ? movieDetails.overview : tvshowDetails.overview}</p>
-      </div>
-      <div className="cast-detail">
-        <h4>THE CAST</h4>
-        <CastList />
-      </div>
-      <div className="links-detail">
-        <a
-          href={movieId ? movieDetails.homepage : tvshowDetails.homepage}
-          target="_blank"
-        >
-          Website <BsLink45Deg className="link-icon" size="20" />
-        </a>
-        {movieId ? (
-          <a
-            href={`https://www.imdb.com/title/${movieDetails.imdb_id}`}
-            target="_blank"
-          >
-            IMDB <SiImdb className="link-icon" size="20" />
-          </a>
-        ) : (
-          <></>
-        )}
-        <a href={`https://www.youtube.com/watch?v=${trailer}`} target="_blank">
-          Trailer <BsPlayFill className="link-icon" size="20" />
-        </a>
-      </div>
+          <div className="synopsis-detail">
+            <h4>THE SYNOPSIS</h4>
+            <p>{movieId ? movieDetails.overview : tvshowDetails.overview}</p>
+          </div>
+          <div className="cast-detail">
+            <h4>THE CAST</h4>
+            <CastList />
+          </div>
+          <div className="links-detail">
+            <a
+              href={movieId ? movieDetails.homepage : tvshowDetails.homepage}
+              target="_blank"
+            >
+              Website <BsLink45Deg className="link-icon" size="20" />
+            </a>
+            {movieId ? (
+              <a
+                href={`https://www.imdb.com/title/${movieDetails.imdb_id}`}
+                target="_blank"
+              >
+                IMDB <SiImdb className="link-icon" size="20" />
+              </a>
+            ) : (
+              <></>
+            )}
+            <a
+              href={`https://www.youtube.com/watch?v=${trailer}`}
+              target="_blank"
+            >
+              Trailer <BsPlayFill className="link-icon" size="20" />
+            </a>
+          </div>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    movieDetails: state.MovieReducer.movieDetails,
-    tvshowDetails: state.TvshowReducer.tvshowDetails,
+    movieData: state.MovieReducer,
+    tvshowData: state.TvshowReducer,
   };
 };
 const mapDispatchToProps = (dispatch) => {
-  let movieid = window.location?.pathname.slice(7);
-  let tvshowid = window.location?.pathname.slice(8);
   return {
-    fetchMovie: () => dispatch(fetchMovie(movieid)),
-    fetchTvshow: () => dispatch(fetchTvshow(tvshowid)),
+    fetchMovie: (movieid) => dispatch(fetchMovie(movieid)),
+    fetchTvshow: (tvshowid) => dispatch(fetchTvshow(tvshowid)),
   };
 };
 

@@ -10,11 +10,11 @@ import {
 } from "../actions/action-types";
 
 const INITIAL_MOVIE_STATE = {
-  loadingMovie: true,
+  loadingMovie: false,
   movieDetails: {},
-  loadingCast: true,
+  loadingCast: false,
   castDetails: [],
-  loadingRecommendations: true,
+  loadingRecommendations: false,
   recommendedMovies: {},
   error: "",
 };
@@ -22,16 +22,16 @@ const INITIAL_MOVIE_STATE = {
 const MovieReducer = (state = INITIAL_MOVIE_STATE, action) => {
   switch (action.type) {
     case FETCH_MOVIE_BEGIN:
-      return { ...state, loadingMovie: true };
+      return { ...state, movieDetails: {}, loadingMovie: true };
     case FETCH_MOVIE_SUCCESS:
-      return { ...state, movieDetails: action.payload };
+      return { ...state, loadingMovie: false, movieDetails: action.payload };
     case FETCH_MOVIE_FAILURE:
       return { ...state, loadingMovie: false, error: action.payload };
 
     case FETCH_MOVIE_CAST_BEGIN:
-      return { ...state, loadingCast: true };
+      return { ...state, castDetails: [], loadingCast: true };
     case FETCH_MOVIE_CAST_SUCCESS:
-      return { ...state, castDetails: action.payload };
+      return { ...state, loadingCast: false, castDetails: action.payload };
     case FETCH_MOVIE_CAST_FAILURE:
       return { ...state, loadingCast: false, error: action.payload };
 

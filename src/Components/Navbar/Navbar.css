@@ -14,7 +14,7 @@
   justify-content: space-between;
   position: fixed;
   top: 0;
-  z-index: 3;
+  z-index: 5;
 }
 .primary-navigation {
   display: flex;
@@ -50,6 +50,7 @@
   padding-left: 30px;
   outline: none;
   border: 1px solid #ffffff;
+  color: #ffffff;
   background-color: rgba(0, 0, 0, 0.9);
   display: none;
   animation: SearchBarShow 0.3s ease-in-out;
@@ -204,6 +205,19 @@
   }
   .browse-section {
     display: inline-flex;
+  }
+  .menu-link {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    padding: 10px;
+  }
+  .browse-dropdown-sec .menu-link {
+    height: 50px;
+    color: #ffffff;
+    font-size: 13px;
+    text-align: center;
+    padding: 15px 0;
   }
 }
 

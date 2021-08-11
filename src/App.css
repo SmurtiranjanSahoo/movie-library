@@ -12,11 +12,12 @@ body {
 }
 
 .tvshow-wrapper {
+  margin: 100px 0 50px 0;
+  padding: 0 5px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 50px;
 }
 .slider-card {
   margin-bottom: 40px;

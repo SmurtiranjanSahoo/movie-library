@@ -8,6 +8,8 @@ import DetailView from "./Pages/DetailView";
 import PageNotFound from "./Pages/PageNotFound";
 import TvShows from "./Pages/TvShows";
 import Movies from "./Pages/Movies";
+import Popular from "./Pages/Popular";
+import Search from "./Pages/Search";
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/tvshows" component={TvShows} />
         <Route exact path="/movies" component={Movies} />
+        <Route exact path="/popular" component={Popular} />
+        <Route exact path="/search" component={Search} />
         <Route exact path="/movie/:movieId" component={DetailView} />
         <Route exact path="/tvshow/:tvshowId" component={DetailView} />
         <Route path="*" component={PageNotFound} />

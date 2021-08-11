@@ -1,12 +1,6 @@
 import React from "react";
 import "./SliderCard.css";
 import { Link } from "react-router-dom";
-import {
-  FaPlay,
-  FaTicketAlt,
-  FaLinkedin,
-  FaCcDinersClub,
-} from "react-icons/fa";
 
 const SliderCard = ({ item }) => {
   let backdrop_img = item.backdrop_path

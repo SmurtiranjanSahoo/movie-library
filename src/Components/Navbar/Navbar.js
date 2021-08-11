@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+
+//icons
 import { RiArrowDownSFill, RiSearchLine, RiCloseLine } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -11,6 +13,7 @@ const Navbar = () => {
   const [isBrowseDropDown, setIsBrowseDropDown] = useState(false);
   const [isHamburgerMenu, setIsHamburgerMenu] = useState(false);
   const [searchBar, setSearchBar] = useState(false);
+  const [searchtext, setSearchtext] = useState("");
 
   const LinkStyle = {
     textDecoration: "none",
@@ -41,16 +44,27 @@ const Navbar = () => {
       </div>
     );
   };
+
   const browseDropDown = () => {
     return (
       <div className="browse-dropdown-wrapper">
         <div className="browse-dropdown-container">
           <div className="browse-dropdown-sec">
-            <p>Home</p>
-            <p>TV Shows</p>
-            <p>Movies</p>
-            <p>New & Popular</p>
-            <p>My List</p>
+            <Link to="/" className="menu-link">
+              Home
+            </Link>
+            <Link to="/tvshows" className="menu-link">
+              TV Shows
+            </Link>
+            <Link to="/movies" className="menu-link">
+              Movies
+            </Link>
+            <Link to="/popular" className="menu-link">
+              New & Popular
+            </Link>
+            <Link to="/" className="menu-link">
+              My List
+            </Link>
           </div>
           <RiArrowDownSFill
             className="browse-dropdown-tip"
@@ -75,8 +89,12 @@ const Navbar = () => {
           <Link to="/movies" className="menu-link">
             Movies
           </Link>
-          <Link className="menu-link">New & Popular</Link>
-          <Link className="menu-link">My List</Link>
+          <Link to="/popular" className="menu-link">
+            New & Popular
+          </Link>
+          <Link to="/" className="menu-link">
+            My List
+          </Link>
         </div>
       </div>
     );
@@ -114,8 +132,12 @@ const Navbar = () => {
           <Link to="/movies" style={LinkStyle}>
             Movies
           </Link>
-          <Link style={LinkStyle}>New & Popular</Link>
-          <Link style={LinkStyle}>My List</Link>
+          <Link to="/popular" style={LinkStyle}>
+            New & Popular
+          </Link>
+          <Link to="/" style={LinkStyle}>
+            My List
+          </Link>
         </div>
         <div
           className="browse-section"
@@ -132,9 +154,11 @@ const Navbar = () => {
           <div className="search-input">
             <input
               style={{ display: searchBar ? "initial" : "none" }}
-              type="text"
+              type={searchtext}
+              onChange={(e) => setSearchtext(e.target.value)}
               placeholder="Titles, people, genres"
             />
+
             <RiSearchLine
               style={{ display: searchBar ? "initial" : "none" }}
               onClick={() => {

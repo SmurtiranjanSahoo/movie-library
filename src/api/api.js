@@ -46,9 +46,22 @@ export const tvshow_url = (id) =>
       "Content-Type": "application/json",
     },
   });
+
 export const tvshow_cast_url = (id) =>
   axios.create({
     baseURL: `https://api.themoviedb.org/3/tv/${id}/credits?language=en-US`,
+    params: {
+      api_key: process.env.REACT_APP_API_KEY,
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+export const search_url = (query) =>
+  axios.create({
+    baseURL: `https://api.themoviedb.org/3/search/keyword?query=${query}`,
     params: {
       api_key: process.env.REACT_APP_API_KEY,
     },
