@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Trending_url,
   PopularMovies_url,
@@ -46,6 +46,7 @@ const Home = ({
   return (
     <div className="App">
       <Navbar />
+      {/* //Todo */}
       {/* <Carousel title="Trending Now" list={trendingList} /> */}
 
       <div style={{ marginTop: "100px" }}>
