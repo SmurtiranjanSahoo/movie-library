@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Navbar.css";
 import { Link, withRouter } from "react-router-dom";
 //icons
@@ -12,6 +12,22 @@ const Navbar = ({ history, searchicon = "visible" }) => {
   const [isBrowseDropDown, setIsBrowseDropDown] = useState(false);
   const [isHamburgerMenu, setIsHamburgerMenu] = useState(false);
 
+  const node = useRef();
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const handleOutsideClick = (e) => {
+    if (node.current !== null) {
+      if (node.current.contains(e.target)) return;
+    }
+    setIsProfileDropDown(false);
+  };
+
   const LinkStyle = {
     textDecoration: "none",
     color: "#ffffff",
@@ -22,7 +38,7 @@ const Navbar = ({ history, searchicon = "visible" }) => {
   const profileDropDown = () => {
     return (
       <div className="profile-dropdown-wrapper">
-        <div className="profile-dropdown-container">
+        <div ref={node} className="profile-dropdown-container">
           <div className="dropdown-sec-primary">
             <p>Manage Profiles</p>
             <p>Exit Profile</p>
@@ -75,30 +91,37 @@ const Navbar = ({ history, searchicon = "visible" }) => {
 
   const hamburgerMenu = () => {
     return (
-      <div className="hamburgermenu-wrapper">
-        <div className="hamburgermenu-links">
-          <Link to="/" className="menu-link">
-            Home
-          </Link>
-          <Link to="/tvshows" className="menu-link">
-            TV Shows
-          </Link>
-          <Link to="/movies" className="menu-link">
-            Movies
-          </Link>
-          <Link to="/popular" className="menu-link">
-            New & Popular
-          </Link>
-          <Link to="/" className="menu-link">
-            My List
-          </Link>
+      <div
+        onClick={() => {
+          setIsHamburgerMenu(false);
+        }}
+        className="hamburgermenu-area"
+      >
+        <div className="hamburgermenu-wrapper">
+          <div className="hamburgermenu-links">
+            <Link to="/" className="menu-link">
+              Home
+            </Link>
+            <Link to="/tvshows" className="menu-link">
+              TV Shows
+            </Link>
+            <Link to="/movies" className="menu-link">
+              Movies
+            </Link>
+            <Link to="/popular" className="menu-link">
+              New & Popular
+            </Link>
+            <Link to="/" className="menu-link">
+              My List
+            </Link>
+          </div>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="navbar-wrapper">
+    <div ref={node} className="navbar-wrapper">
       {!isHamburgerMenu ? (
         <GiHamburgerMenu
           className="hambuger-icon"

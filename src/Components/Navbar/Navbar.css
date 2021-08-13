@@ -213,6 +213,15 @@
     height: 30px;
     margin: 18px 16px;
     z-index: 3;
+    cursor: pointer;
+  }
+
+  .hamburgermenu-area {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
   }
   .hamburgermenu-wrapper {
     height: 100vh;
@@ -220,7 +229,7 @@
     background-color: rgba(0, 0, 0, 0.95);
     position: absolute;
     left: 0;
-    z-index: 2;
+    z-index: 3;
     animation: HamburgerMenuShow 0.3s ease-in-out;
     animation-duration: 0.3s;
     animation-timing-function: ease-in-out;
@@ -231,6 +240,7 @@
     animation-play-state: running;
     animation-name: HamburgerMenuShow;
   }
+
   .hamburgermenu-links {
     margin-top: 50px;
     padding: 20px 40px;
