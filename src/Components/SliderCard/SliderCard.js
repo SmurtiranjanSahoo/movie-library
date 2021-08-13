@@ -17,9 +17,6 @@ const SliderCard = ({ item }) => {
     <div className="slider-card-wrapper">
       <Link to={detailView_link} className="slider-card-img">
         <img src={backdrop_img} alt="backdrop img" />
-        <div className="slider-card-info">
-          <div className="slider-card-rating"> 9.1 IMDB </div>
-        </div>
       </Link>
     </div>
   );

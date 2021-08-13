@@ -21,20 +21,6 @@
   cursor: pointer;
 }
 
-.slider-card-info {
-  position: absolute;
-  inset: 0;
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: 600;
-  text-shadow: 3px 3px 4px black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  display: none;
-}
-
 .slider-card-wrapper:hover {
   transition: 0.5s all ease-in-out 500ms;
   margin: 0 38px 0 33px;
