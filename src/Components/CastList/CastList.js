@@ -25,6 +25,22 @@ const CastList = ({
     movieId ? fetchMovieCast(movieId) : fetchTvshowCast(tvshowId);
   }, []);
 
+  const castItem = (i, item) => {
+    return (
+      <div key={i} className="cast">
+        <img
+          src={
+            item.profile_path
+              ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+              : "https://bit.ly/37CoSXX"
+          }
+          alt="actor"
+        />
+        <p>{item.name}</p>
+      </div>
+    );
+  };
+
   return (
     <div className="castlist-wrapper">
       <div style={{ visibility: prevBtn }} className="castlist-button-prev">
@@ -70,32 +86,8 @@ const CastList = ({
       </div>
       <div ref={castRef} className="castlist">
         {movieId
-          ? movieCastDetails.map((item, i) => (
-              <div key={i} className="cast">
-                <img
-                  src={
-                    item.profile_path
-                      ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-                      : "https://bit.ly/37CoSXX"
-                  }
-                  alt="actor"
-                />
-                <p>{item.name}</p>
-              </div>
-            ))
-          : tvCastDetails.map((item, i) => (
-              <div key={i} className="cast">
-                <img
-                  src={
-                    item.profile_path
-                      ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-                      : "https://fabmovielibrary.netlify.app/static/media/avatar.6dcde115.svg"
-                  }
-                  alt="actor"
-                />
-                <p>{item.name}</p>
-              </div>
-            ))}
+          ? movieCastDetails.map((item, i) => castItem(i, item))
+          : tvCastDetails.map((item, i) => castItem(i, item))}
       </div>
     </div>
   );
