@@ -1,18 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { connect } from "react-redux";
 import { fetchPopularList } from "../actions/popularListActions";
-import { PopularMovies_url } from "../config/config";
+import BounceLoader from "react-spinners/BounceLoader";
+import { css } from "@emotion/react";
 //components
 import SliderCard from "../Components/SliderCard/SliderCard";
 import Navbar from "../Components/Navbar/Navbar";
 import PosterCard from "../Components/PosterCard/PosterCard";
 
-const Popular = ({ fetchPopularList, popularList }) => {
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
+
+const Popular = ({ fetchPopularList, populars }) => {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const { loadingList, List } = populars;
+  const [pageNum, setPageNum] = useState(1);
+  const observer = useRef();
+
+  const lastMovieElementRef = useCallback(
+    (node) => {
+      if (loadingList) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPageNum((prevPageNum) => prevPageNum + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loadingList]
+  );
 
   useEffect(() => {
-    fetchPopularList(PopularMovies_url);
-  }, []);
+    fetchPopularList(pageNum);
+  }, [pageNum]);
 
   useEffect(() => {
     const updateWindowDimensions = () => {
@@ -26,14 +50,29 @@ const Popular = ({ fetchPopularList, popularList }) => {
     <div className="App">
       <Navbar />
       <div className="tvshow-wrapper" style={{ marginTop: "100px" }}>
-        {popularList.map((movie, i) =>
-          innerWidth < 769 ? (
-            <PosterCard item={movie} />
+        {List.map((popular, i) =>
+          List.length === i + 1 ? (
+            innerWidth < 769 ? (
+              <div key={i} ref={lastMovieElementRef}>
+                <PosterCard item={popular} />
+              </div>
+            ) : (
+              <div ref={lastMovieElementRef} key={i} className="slider-card">
+                <SliderCard item={popular} />
+              </div>
+            )
+          ) : innerWidth < 769 ? (
+            <PosterCard key={i} item={popular} />
           ) : (
             <div key={i} className="slider-card">
-              <SliderCard item={movie} />
+              <SliderCard item={popular} />
             </div>
           )
+        )}
+        {loadingList && (
+          <div className="loader">
+            <BounceLoader css={override} size={40} />
+          </div>
         )}
       </div>
     </div>
@@ -41,11 +80,11 @@ const Popular = ({ fetchPopularList, popularList }) => {
 };
 
 const mapStateToProps = (state) => ({
-  popularList: state.PopularListReducer.List.reverse(),
+  populars: state.PopularListReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPopularList: () => dispatch(fetchPopularList(PopularMovies_url)),
+  fetchPopularList: (pageNum) => dispatch(fetchPopularList(pageNum)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Popular);

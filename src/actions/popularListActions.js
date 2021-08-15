@@ -5,11 +5,11 @@ import {
 } from "./action-types";
 import { base_url } from "../api/api";
 
-export const fetchPopularList = (url) => {
+export const fetchPopularList = (pageNum) => {
   return (dispatch) => {
     dispatch(fetchPopularListBegin());
     base_url
-      .get(url)
+      .get(`/movie/popular?language=en-US&page=${pageNum}`)
       .then((response) => {
         const popularList = response.data?.results;
         dispatch(fetchPopularListSuccess(popularList));

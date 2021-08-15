@@ -18,7 +18,7 @@ const PopularListReducer = (state = POPULAR_LIST_STATE, action) => {
       return {
         ...state,
         loadingList: false,
-        List: action.payload,
+        List: [...state.List, ...action.payload],
       };
     case POPULAR_LIST_FAILURE:
       return {
