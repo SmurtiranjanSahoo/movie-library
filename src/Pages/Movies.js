@@ -1,18 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { connect } from "react-redux";
 import { fetchMovieList } from "../actions/discoverMovieListActions";
-import { DiscoverMovies_url } from "../config/config";
+import BounceLoader from "react-spinners/BounceLoader";
+import { css } from "@emotion/react";
+
 //components
 import SliderCard from "../Components/SliderCard/SliderCard";
 import Navbar from "../Components/Navbar/Navbar";
 import PosterCard from "../Components/PosterCard/PosterCard";
 
-const Movies = ({ movieList, fetchMovieList }) => {
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
+
+const Movies = ({ movies, fetchMovieList }) => {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const { loadingList, List } = movies;
+  const [pageNum, setPageNum] = useState(1);
+  const observer = useRef();
+
+  const lastMovieElementRef = useCallback(
+    (node) => {
+      if (loadingList) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPageNum((prevPageNum) => prevPageNum + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loadingList]
+  );
 
   useEffect(() => {
-    fetchMovieList(DiscoverMovies_url);
-  }, []);
+    fetchMovieList(pageNum);
+  }, [pageNum]);
 
   useEffect(() => {
     const updateWindowDimensions = () => {
@@ -26,14 +51,29 @@ const Movies = ({ movieList, fetchMovieList }) => {
     <div className="App">
       <Navbar />
       <div className="tvshow-wrapper" style={{ marginTop: "100px" }}>
-        {movieList.map((movie, i) =>
-          innerWidth < 769 ? (
-            <PosterCard item={movie} />
+        {List.map((movie, i) =>
+          List.length === i + 1 ? (
+            innerWidth < 769 ? (
+              <div key={i} ref={lastMovieElementRef}>
+                <PosterCard item={movie} />
+              </div>
+            ) : (
+              <div ref={lastMovieElementRef} key={i} className="slider-card">
+                <SliderCard item={movie} />
+              </div>
+            )
+          ) : innerWidth < 769 ? (
+            <PosterCard key={i} item={movie} />
           ) : (
             <div key={i} className="slider-card">
               <SliderCard item={movie} />
             </div>
           )
+        )}
+        {loadingList && (
+          <div className="loader">
+            <BounceLoader css={override} size={40} />
+          </div>
         )}
       </div>
     </div>
@@ -41,11 +81,11 @@ const Movies = ({ movieList, fetchMovieList }) => {
 };
 
 const mapStateToProps = (state) => ({
-  movieList: state.DiscoverMovieListReducer.List,
+  movies: state.DiscoverMovieListReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchMovieList: () => dispatch(fetchMovieList(DiscoverMovies_url)),
+  fetchMovieList: (pageNum) => dispatch(fetchMovieList(pageNum)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movies);

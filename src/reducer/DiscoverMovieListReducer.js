@@ -18,7 +18,7 @@ const DiscoverMovieListReducer = (state = DISCOVERMOVIE_LIST_STATE, action) => {
       return {
         ...state,
         loadingList: false,
-        List: action.payload,
+        List: [...state.List, ...action.payload],
       };
     case DISCOVERMOVIE_LIST_FAILURE:
       return {
