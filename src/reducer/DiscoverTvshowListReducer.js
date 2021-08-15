@@ -21,7 +21,7 @@ const DiscoverTvshowListReducer = (
       return {
         ...state,
         loadingList: false,
-        List: action.payload,
+        List: [...state.List, ...action.payload],
       };
     case DISCOVERTVSHOW_LIST_FAILURE:
       return {
