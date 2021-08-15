@@ -45,6 +45,11 @@ body {
 .slider-card {
   margin-bottom: 40px;
 }
+.loader {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 20px;
+}
 
 @media screen and (max-width: 768px) {
   .slider-card {
