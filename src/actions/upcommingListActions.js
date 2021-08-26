@@ -5,11 +5,11 @@ import {
 } from "./action-types";
 import { base_url } from "../api/api";
 
-export const fetchUpcommingList = (url) => {
+export const fetchUpcommingList = () => {
   return (dispatch) => {
     dispatch(fetchUpcommingListBegin());
     base_url
-      .get(url)
+      .get(`/movie/upcoming?language=en-US&page=1`)
       .then((response) => {
         const List = response.data?.results;
         dispatch(fetchUpcommingListSuccess(List));

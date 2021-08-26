@@ -1,11 +1,11 @@
 import { LIST_FAILURE, LIST_BEGIN, LIST_SUCCESS } from "./action-types";
 import { base_url } from "../api/api";
 
-export const fetchList = (url) => {
+export const fetchList = () => {
   return (dispatch) => {
     dispatch(fetchListBegin());
     base_url
-      .get(url)
+      .get(`/trending/all/day?`)
       .then((response) => {
         const popularList = response.data?.results;
         dispatch(fetchListSuccess(popularList));

@@ -6,13 +6,12 @@ import {
   FETCH_TVSHOW_CAST_SUCCESS,
   FETCH_TVSHOW_CAST_FAILURE,
 } from "./action-types";
-import { tvshow_cast_url, tvshow_url } from "../api/api";
+import { base_url } from "../api/api";
 
 export const fetchTvshow = (id) => {
   return (dispatch) => {
     dispatch(fetchTvshowBegin());
-    tvshow_url(id)
-      .get()
+    base_url(`tv/${id}?language=en-US`)
       .then((response) => {
         // console.log(response.data);
         const tvshow = response.data;
@@ -42,8 +41,7 @@ export const fetchTvshowFailure = (error) => ({
 export const fetchTvshowCast = (id) => {
   return (dispatch) => {
     dispatch(fetchTvshowCastBegin());
-    tvshow_cast_url(id)
-      .get()
+    base_url(`tv/${id}/credits?language=en-US`)
       .then((response) => {
         // console.log(response.data?.cast);
         const cast = response.data?.cast;

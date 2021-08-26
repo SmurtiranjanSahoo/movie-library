@@ -3,16 +3,19 @@ import {
   FETCH_SEARCH_RESULT_SUCCESS,
   FETCH_SEARCH_RESULT_FAILURE,
 } from "./action-types";
-import { search_url } from "../api/api";
+import { base_url } from "../api/api";
+import axios from "axios";
 
-export const fetchSearchResult = (query) => {
+export const fetchSearchResult = (query, cancelToken) => {
   return (dispatch) => {
     dispatch(fetchSearchResultBegin());
-    search_url(query)
-      .get()
+    base_url
+      .get(`search/multi?query=${query}`, {
+        cancelToken: new axios.CancelToken((c) => (cancelToken = c)),
+      })
       .then((response) => {
         const searchResult = response.data?.results;
-        // console.log(searchResult);
+        console.log(searchResult);
         dispatch(fetchSearchResultSuccess(searchResult));
       })
       .catch((err) => {
