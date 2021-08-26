@@ -5,8 +5,9 @@ import {
   FETCH_MOVIE_CAST_BEGIN,
   FETCH_MOVIE_CAST_SUCCESS,
   FETCH_MOVIE_CAST_FAILURE,
-  MOVIE_RECOMMENDATION_LOADING,
-  FETCH_MOVIE_RECOMMENDATIONS,
+  FETCH_RECOMMENDATION_BEGIN,
+  FETCH_RECOMMENDATION_SUCCESS,
+  FETCH_RECOMMENDATION_FAILURE,
 } from "../actions/action-types";
 
 const INITIAL_MOVIE_STATE = {
@@ -15,7 +16,7 @@ const INITIAL_MOVIE_STATE = {
   loadingCast: false,
   castDetails: [],
   loadingRecommendations: false,
-  recommendedMovies: {},
+  recommendedMovies: [],
   error: "",
 };
 
@@ -35,14 +36,16 @@ const MovieReducer = (state = INITIAL_MOVIE_STATE, action) => {
     case FETCH_MOVIE_CAST_FAILURE:
       return { ...state, loadingCast: false, error: action.payload };
 
-    case MOVIE_RECOMMENDATION_LOADING:
-      return { ...state, loadingRecommendations: true };
-    case FETCH_MOVIE_RECOMMENDATIONS:
+    case FETCH_RECOMMENDATION_BEGIN:
+      return { ...state, recommendedMovies: [], loadingRecommendations: true };
+    case FETCH_RECOMMENDATION_SUCCESS:
       return {
         ...state,
-        recommendedMovies: action.payload,
         loadingRecommendations: false,
+        recommendedMovies: action.payload,
       };
+    case FETCH_RECOMMENDATION_FAILURE:
+      return { ...state, loadingRecommendations: false, error: action.payload };
 
     default:
       return state;
