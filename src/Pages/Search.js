@@ -17,6 +17,7 @@ const Search = ({ searchResult, fetchSearchResult }) => {
     fetchSearchResult(searchtext);
     localStorage.setItem("searchtext", searchtext);
   }, [searchtext]);
+
   useEffect(() => {
     searchinput.current.focus();
   }, []);

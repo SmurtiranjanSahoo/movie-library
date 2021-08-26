@@ -1,12 +1,4 @@
 import React, { useEffect } from "react";
-import {
-  Trending_url,
-  PopularMovies_url,
-  DiscoverMovies_url,
-  DiscoverTVshows_url,
-  TopRated_url,
-  Upcomming_url,
-} from "../config/config";
 
 import { connect } from "react-redux";
 import { fetchList } from "../actions/listActions";
@@ -35,12 +27,12 @@ const Home = ({
   upcommingList,
 }) => {
   useEffect(() => {
-    fetchList(Trending_url);
-    fetchPopularList(PopularMovies_url);
-    fetchMovieList(DiscoverMovies_url);
-    fetchTvshowList(DiscoverTVshows_url);
-    fetchTopratedList(TopRated_url);
-    fetchUpcommingList(Upcomming_url);
+    fetchList();
+    fetchPopularList();
+    fetchMovieList();
+    fetchTvshowList();
+    fetchTopratedList();
+    fetchUpcommingList();
   }, []);
 
   return (
@@ -71,17 +63,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchList: (Trending_url) => dispatch(fetchList(Trending_url)),
-  fetchPopularList: (PopularMovies_url) =>
-    dispatch(fetchPopularList(PopularMovies_url)),
-  fetchMovieList: (DiscoverMovies_url) =>
-    dispatch(fetchMovieList(DiscoverMovies_url)),
-  fetchTvshowList: (DiscoverTVshows_url) =>
-    dispatch(fetchTvshowList(DiscoverTVshows_url)),
-  fetchTopratedList: (TopRated_url) =>
-    dispatch(fetchTopratedList(TopRated_url)),
-  fetchUpcommingList: (Upcomming_url) =>
-    dispatch(fetchUpcommingList(Upcomming_url)),
+  fetchList: () => dispatch(fetchList()),
+  fetchPopularList: () => dispatch(fetchPopularList()),
+  fetchMovieList: () => dispatch(fetchMovieList()),
+  fetchTvshowList: () => dispatch(fetchTvshowList()),
+  fetchTopratedList: () => dispatch(fetchTopratedList()),
+  fetchUpcommingList: () => dispatch(fetchUpcommingList()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,12 +1,13 @@
 import React from "react";
 import "../Components/DetailView/DetailView.css";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, withRouter } from "react-router-dom";
 import { css } from "@emotion/react";
 import BounceLoader from "react-spinners/BounceLoader";
 //components
 import DetailViewInfo from "../Components/DetailView/DetailViewInfo";
 import Navbar from "../Components/Navbar/Navbar";
+import Recommendation from "../Components/Recommendation/Recommendation";
 
 const override = css`
   display: block;
@@ -33,8 +34,8 @@ const DetailView = ({ movieData, tvshowData }) => {
             <img
               src={
                 movieId
-                  ? `https://image.tmdb.org/t/p/w500${movieDetails?.poster_path}`
-                  : `https://image.tmdb.org/t/p/w500${tvshowDetails?.poster_path}`
+                  ? `https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`
+                  : `https://image.tmdb.org/t/p/w500/${tvshowDetails?.poster_path}`
               }
               alt="poster"
             />
@@ -44,6 +45,7 @@ const DetailView = ({ movieData, tvshowData }) => {
           <DetailViewInfo />
         </div>
       </div>
+      <Recommendation />
     </div>
   );
 };
@@ -53,4 +55,4 @@ const mapStateToProps = (state) => ({
   tvshowData: state.TvshowReducer,
 });
 
-export default connect(mapStateToProps)(DetailView);
+export default connect(mapStateToProps)(withRouter(DetailView));
