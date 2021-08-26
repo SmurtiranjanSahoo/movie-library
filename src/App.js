@@ -20,8 +20,8 @@ const App = () => {
         <Route exact path="/movies" component={Movies} />
         <Route exact path="/popular" component={Popular} />
         <Route exact path="/search" component={Search} />
-        <Route exact path="/movie/:movieId" component={DetailView} />
-        <Route exact path="/tvshow/:tvshowId" component={DetailView} />
+        <Route path="/movie/:movieId" component={DetailView} />
+        <Route path="/tvshow/:tvshowId" component={DetailView} />
         <Route path="*" component={PageNotFound} />
       </Switch>
     </Router>
