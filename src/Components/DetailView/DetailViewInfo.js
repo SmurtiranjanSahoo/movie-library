@@ -42,7 +42,8 @@ const DetailViewInfo = ({ fetchMovie, movieData, fetchTvshow, tvshowData }) => {
   useEffect(() => {
     movieId ? fetchMovie(movieId) : fetchTvshow(tvshowId);
     fetchTrailer();
-  }, []);
+    window.scrollTo(0, 0);
+  }, [movieId, tvshowId]);
 
   return (
     <Fragment>
